@@ -1,0 +1,5 @@
+1|Langeng|Female|0342034|ajldjfal|admin|123
+2|Lora|Male|0978559898|bean@gmail.com|Sale|123
+3|Cheata|Female|0888184347|Cheata@gmail.com|Marketing|2011
+4|Jennie|Female|012944025|jennie@gmail.com|Sale|1601
+5|Kim|Female|08828182|kim@gmail.com|Finance|999
