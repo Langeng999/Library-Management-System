@@ -73,10 +73,10 @@ void member_manu(int memberId)
                          << "\tCategory: " << category
                          << "\tStatus: " << (isAvailable(status) ? "Available" : "Borrowed")
                          << "\n";
-
+                    
                     foundAny = true;
                 }
-
+                
                 if (!foundAny)
                     cout << "No books found!\n";
                 inFile.close();
@@ -282,3 +282,4 @@ void member_manu(int memberId)
 
     } while (addMore == 'y' || addMore == 'Y');
 }
+

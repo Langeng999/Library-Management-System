@@ -1,5 +1,8 @@
 #pragma once
 #include <iostream>
+#include <stdexcept>
+#include <limits>
+#include <string>
 using namespace std;
 class Book
 {
@@ -117,31 +120,123 @@ public:
         return category;
     }
 
-    void input()
-    {
-        cout << "Enter Book ID: ";
-        while (!(cin >> bookId) || bookId <= 0)
-        {
-            cout << "Invalid ID. Enter positive number: ";
-            cin.clear();
-            cin.ignore(1000, '\n');
-        }
-        cin.ignore();
+   void input()
+{
+    while (true) {
+        try {
+            cout << "Enter Book ID: ";
+            cin >> bookId;
 
-        cout << "Enter Book Title: ";
-        getline(cin, bookTitle);
-        cout << "Enter Book Author: ";
-        getline(cin, bookAuthor);
-        cout << "Enter ISBN: ";
-        getline(cin, isbn);
-        cout << "Enter Category: ";
-        getline(cin, category);
-        cout << "Available? (1/0): ";
-        int status;
-        cin >> status;
-        isBorrow = (status == 1);
-        cin.ignore();
+            if (cin.fail()) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                throw invalid_argument("Book ID must be a number!");
+            }
+
+            if (bookId <= 0) {
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                throw invalid_argument("Book ID must be a positive number!");
+            }
+
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            break;
+        }
+        catch (const exception& e) {
+            cout << e.what() << "\n";
+        }
     }
+
+    // ---- Title ----
+    while (true) {
+        try {
+            cout << "Enter Book Title: ";
+            getline(cin, bookTitle);
+
+            if (bookTitle.empty())
+                throw invalid_argument("Book title cannot be empty!");
+
+            break;
+        }
+        catch (const exception& e) {
+            cout << e.what() << "\n";
+        }
+    }
+
+    // ---- Author ----
+    while (true) {
+        try {
+            cout << "Enter Book Author: ";
+            getline(cin, bookAuthor);
+
+            if (bookAuthor.empty())
+                throw invalid_argument("Book author cannot be empty!");
+
+            break;
+        }
+        catch (const exception& e) {
+            cout << e.what() << "\n";
+        }
+    }
+
+    // ---- ISBN ----
+    while (true) {
+        try {
+            cout << "Enter ISBN: ";
+            getline(cin, isbn);
+
+            if (isbn.empty())
+                throw invalid_argument("ISBN cannot be empty!");
+
+            break;
+        }
+        catch (const exception& e) {
+            cout << e.what() << "\n";
+        }
+    }
+
+    // ---- Category ----
+    while (true) {
+        try {
+            cout << "Enter Book Category: ";
+            getline(cin, category);
+
+            if (category.empty())
+                throw invalid_argument("Category cannot be empty!");
+
+            break;
+        }
+        catch (const exception& e) {
+            cout << e.what() << "\n";
+        }
+    }
+
+    // ---- Borrow Status ----
+    while (true) {
+        try {
+            int statusInput;
+            cout << "Enter Borrow Status (1 for Available, 0 for Borrowed): ";
+            cin >> statusInput;
+
+            if (cin.fail()) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                throw invalid_argument("Borrow status must be a number (0 or 1)!");
+            }
+
+            if (statusInput != 0 && statusInput != 1) {
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                throw invalid_argument("Borrow status must be 0 or 1!");
+            }
+
+            isBorrow = (statusInput == 1);
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            break;
+        }
+        catch (const exception& e) {
+            cout << e.what() << "\n";
+        }
+    }
+}
     void display() const
     {
         cout << "\n=== Book Info ===\n";
